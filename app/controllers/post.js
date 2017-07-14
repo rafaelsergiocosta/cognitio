@@ -21,5 +21,15 @@ module.exports = function() {
         })[0];
         post ? res.json(post) : res.status(404).send('Post não encontrado');
     };
+
+    controller.removePost = function(req, res) {
+        var idPost = req.params.id;
+
+        posts = posts.filter(function(post) {
+            return post._id != idPost;
+        });
+        res.sendStatus(204).end();
+    };
+
     return controller;
 }
