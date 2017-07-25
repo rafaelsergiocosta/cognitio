@@ -1,9 +1,17 @@
 <div class="jumbotron">
     <h1 class="text-center">Bem-Vindo ao Cognitio</h1>
 </div>
+<p ng-show="mensagem.texto">
+    {{mensagem.texto}}
+</p>
 <button class="btn btn-primary" ng-click="incrementa()">Novo</button>
 <input ng-model="filtro" type="search" placeholder="parte do nome">
-<p>Posts cadastrados: {{posts.length}}</p>
+<p ng-show="posts.length">
+    Posts cadastrados: {{posts.length}}
+</p>
+<p class="text-info" ng-hide="posts.length">
+    Não há posts cadastrados
+</p>
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
