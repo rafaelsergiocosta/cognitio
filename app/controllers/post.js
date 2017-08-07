@@ -1,10 +1,15 @@
+var ID_POST_INC = 3;
+
 var posts = [
-    {_id: 1, titulo: 'Post Exemplo 1',
-    autor: 'cont1@empresa.com.br'},
-    {_id: 2, titulo: 'Post Exemplo 2',
-    autor: 'cont2@empresa.com.br'},
-    {_id: 3, titulo: 'Post Exemplo 3',
-    autor: 'cont3@empresa.com.br'}
+    {_id: 1, titulo: 'Lorem Ipsum 1',
+    autor: 'teste1',
+    post: 'Lorem ipsum dolor sit amet'},
+    {_id: 2, titulo: 'Lorem Ipsum 2',
+    autor: 'teste2',
+    post: 'consectetur adipiscing elit'},
+    {_id: 3, titulo: 'Lorem Ipsum 3',
+    autor: 'teste3',
+    post: 'In in est in tellus tempus placerat'}
 ];
 
 module.exports = function() {
@@ -29,6 +34,32 @@ module.exports = function() {
             return post._id != idPost;
         });
         res.sendStatus(204).end();
+    };
+
+    controller.salvaPost = function(req, res) {
+        var post = req.body;
+        post = post._id ?
+        atualiza(post) :
+        adiciona(post);
+        res.json(post);
+    };
+
+    function adiciona(postNovo) {
+        postNovo._id = ++ID_POST_INC;;
+        posts.push(postNovo);
+        return postNovo;
+    }
+
+    function atualiza(postAlterar) {
+        posts = posts.map(
+            function(post) {
+                if(post._id == postAlterar._id) {
+                    post = postAlterar;
+                }
+                return post;
+            }
+        );
+        return postAlterar;
     };
 
     return controller;

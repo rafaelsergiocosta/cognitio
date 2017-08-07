@@ -4,7 +4,7 @@
 <p ng-show="mensagem.texto">
     {{mensagem.texto}}
 </p>
-<button class="btn btn-primary" ng-click="incrementa()">Novo</button>
+<a ng-href="#/post" class="btn btn-primary">Novo Post</a>
 <input ng-model="filtro" type="search" placeholder="parte do nome">
 <p ng-show="posts.length">
     Posts cadastrados: {{posts.length}}
@@ -21,7 +21,7 @@
         </tr>
         <tr ng-repeat="post in posts | filter: filtro">
             <td>
-                <a>{{post.titulo}}</a>
+                <a ng-href="#/post/{{post._id}}">{{post.titulo}}</a>
             </td>
             <td>{{post.autor}}</td>
             <td class="text-center">
