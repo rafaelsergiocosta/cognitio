@@ -1,7 +1,5 @@
 angular.module('cognitio').controller('PostController',
-    function($scope, $routeParams, $resource) {
-        
-        var Post = $resource('/posts/:id');
+    function($scope, $routeParams, Post) {
 
         $scope.post = new Post();
         

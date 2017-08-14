@@ -1,5 +1,6 @@
 angular.module('cognitio').controller('PostsController',
-    function($scope, $resource) {
+    function(Post, $scope) {
+        
         $scope.posts = [];
 
         $scope.filtro = '';
@@ -9,8 +10,6 @@ angular.module('cognitio').controller('PostsController',
         $scope.init = function() {
             buscaPosts();
         };
-
-        var Post = $resource('/posts/:id');
         
         function buscaPosts() {
             Post.query(

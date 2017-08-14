@@ -1,65 +1,75 @@
-var ID_POST_INC = 3;
+module.exports = function(app) {
 
-var posts = [
-    {_id: 1, titulo: 'Lorem Ipsum 1',
-    autor: 'teste1',
-    post: 'Lorem ipsum dolor sit amet'},
-    {_id: 2, titulo: 'Lorem Ipsum 2',
-    autor: 'teste2',
-    post: 'consectetur adipiscing elit'},
-    {_id: 3, titulo: 'Lorem Ipsum 3',
-    autor: 'teste3',
-    post: 'In in est in tellus tempus placerat'}
-];
+    var Post = app.models.post;
 
-module.exports = function() {
     var controller = {};
-
+    
     controller.listPosts = function(req, res) {
-        res.json(posts);
+        Post.find().exec()
+        .then(
+            function(posts) {
+                res.json(posts);
+            },
+            function(erro) {
+                console.log(erro);
+                res.status(500).json(erro);
+            }
+        );
     };
 
     controller.getPost = function(req, res) {
-        var idPost = req.params.id;
-        var post = posts.filter(function(post) {
-            return post._id == idPost;
-        })[0];
-        post ? res.json(post) : res.status(404).send('Post não encontrado');
+        var _id = req.params.id;
+        Post.findById(_id).exec()
+        .then(
+            function(post) {
+                if (!post) throw new Error("Post não encontrado");
+                res.json(post);
+            },
+            function(erro) {
+                console.log(erro);
+                res.status(404).json(erro);
+            }
+        );
     };
 
     controller.removePost = function(req, res) {
-        var idPost = req.params.id;
-
-        posts = posts.filter(function(post) {
-            return post._id != idPost;
-        });
-        res.sendStatus(204).end();
+        var _id = req.params.id;
+        Post.remove({"_id" : _id}).exec()
+        .then(
+            function() {
+                res.end();
+            },
+            function(erro) {
+                return console.error(erro);
+            }
+        );
     };
 
     controller.salvaPost = function(req, res) {
-        var post = req.body;
-        post = post._id ?
-        atualiza(post) :
-        adiciona(post);
-        res.json(post);
-    };
-
-    function adiciona(postNovo) {
-        postNovo._id = ++ID_POST_INC;;
-        posts.push(postNovo);
-        return postNovo;
-    }
-
-    function atualiza(postAlterar) {
-        posts = posts.map(
-            function(post) {
-                if(post._id == postAlterar._id) {
-                    post = postAlterar;
+        var _id = req.body._id;
+        if(_id) {
+            Post.findByIdAndUpdate(_id, req.body).exec()
+            .then(
+                function(post) {
+                    res.json(post);
+                },
+                function(erro) {
+                    console.error(erro)
+                    res.status(500).json(erro);
                 }
-                return post;
-            }
-        );
-        return postAlterar;
+            );
+        } else {
+            Post.create(req.body)
+            .then(
+                function(post) {
+                    res.status(201).json(post);
+                },
+                function(erro) {
+                    console.log(erro);
+                    res.status(500).json(erro);
+                }
+            );
+        }
     };
 
     return controller;
