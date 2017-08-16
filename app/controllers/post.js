@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-    var Post = app.models.post;
+    var Post = app.models.Post;
 
     var controller = {};
     

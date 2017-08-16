@@ -4,7 +4,7 @@ module.exports = function(uri) {
     mongoose.connect(uri, { useMongoClient: true });
 
     // Debug
-    mongoose.set('debug',true);
+    //mongoose.set('debug',true);
 
     process.on('SIGINT', function() {
         mongoose.connection.close(function() {
