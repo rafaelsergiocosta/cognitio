@@ -5,8 +5,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
 
-module.exports = function() {
-    var app = express();
+module.exports = function(app) {
     
     // configurações de ambiente
     app.set('port', 3000);
@@ -14,7 +13,6 @@ module.exports = function() {
     app.set('views','./app/views');
     
     // middlewares
-    app.use(express.static('./public'));
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
     app.use(require('method-override')());
@@ -34,6 +32,8 @@ module.exports = function() {
         .then('routes/auth.js')
         .then('routes')
         .into(app);
+
+    app.use(express.static('./public'));
 
     return app;
 };
