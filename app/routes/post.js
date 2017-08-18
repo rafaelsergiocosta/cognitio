@@ -1,12 +1,14 @@
+var verificaAutenticacao = require('../../config/auth');
+
 module.exports = function(app) {
     var controller = app.controllers.post;
     
     app.route('/posts')
-        .get(controller.listPosts)
-        .post(controller.salvaPost);
+        .get(verificaAutenticacao, controller.listPosts)
+        .post(verificaAutenticacao, controller.salvaPost);
 
     app.route('/posts/:id')
-        .get(controller.getPost)
-        .delete(controller.removePost)
-        .post(controller.salvaPost);
+        .get(verificaAutenticacao, controller.getPost)
+        .delete(verificaAutenticacao, controller.removePost)
+        .post(verificaAutenticacao, controller.salvaPost);
 }
