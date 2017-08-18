@@ -1,34 +1,75 @@
-var posts = [
-    {_id: 1, titulo: 'Post Exemplo 1',
-    autor: 'cont1@empresa.com.br'},
-    {_id: 2, titulo: 'Post Exemplo 2',
-    autor: 'cont2@empresa.com.br'},
-    {_id: 3, titulo: 'Post Exemplo 3',
-    autor: 'cont3@empresa.com.br'}
-];
+module.exports = function(app) {
 
-module.exports = function() {
+    var Post = app.models.Post;
+
     var controller = {};
-
+    
     controller.listPosts = function(req, res) {
-        res.json(posts);
+        Post.find().exec()
+        .then(
+            function(posts) {
+                res.json(posts);
+            },
+            function(erro) {
+                console.log(erro);
+                res.status(500).json(erro);
+            }
+        );
     };
 
     controller.getPost = function(req, res) {
-        var idPost = req.params.id;
-        var post = posts.filter(function(post) {
-            return post._id == idPost;
-        })[0];
-        post ? res.json(post) : res.status(404).send('Post não encontrado');
+        var _id = req.params.id;
+        Post.findById(_id).exec()
+        .then(
+            function(post) {
+                if (!post) throw new Error("Post não encontrado");
+                res.json(post);
+            },
+            function(erro) {
+                console.log(erro);
+                res.status(404).json(erro);
+            }
+        );
     };
 
     controller.removePost = function(req, res) {
-        var idPost = req.params.id;
+        var _id = req.params.id;
+        Post.remove({"_id" : _id}).exec()
+        .then(
+            function() {
+                res.end();
+            },
+            function(erro) {
+                return console.error(erro);
+            }
+        );
+    };
 
-        posts = posts.filter(function(post) {
-            return post._id != idPost;
-        });
-        res.sendStatus(204).end();
+    controller.salvaPost = function(req, res) {
+        var _id = req.body._id;
+        if(_id) {
+            Post.findByIdAndUpdate(_id, req.body).exec()
+            .then(
+                function(post) {
+                    res.json(post);
+                },
+                function(erro) {
+                    console.error(erro)
+                    res.status(500).json(erro);
+                }
+            );
+        } else {
+            Post.create(req.body)
+            .then(
+                function(post) {
+                    res.status(201).json(post);
+                },
+                function(erro) {
+                    console.log(erro);
+                    res.status(500).json(erro);
+                }
+            );
+        }
     };
 
     return controller;

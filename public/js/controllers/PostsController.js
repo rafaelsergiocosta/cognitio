@@ -1,14 +1,15 @@
 angular.module('cognitio').controller('PostsController',
-    function($scope, $resource) {
+    function(Post, $scope) {
+        
         $scope.posts = [];
 
         $scope.filtro = '';
 
+        $scope.mensagem = {texto: ''};
+
         $scope.init = function() {
             buscaPosts();
         };
-
-        var Post = $resource('/posts/:id');
         
         function buscaPosts() {
             Post.query(
@@ -16,7 +17,7 @@ angular.module('cognitio').controller('PostsController',
                     $scope.posts = posts;
                 },
                 function(erro) {
-                    console.log("Não foi possível obter a lista de posts");
+                    $scope.mensagem = {texto: 'Não foi possível obter a lista de posts'};
                     console.log(erro);
                 }
             );
@@ -26,7 +27,7 @@ angular.module('cognitio').controller('PostsController',
             Post.delete({id: post._id},
                 buscaPosts,
                 function(erro) {
-                    console.log('Não foi possível remover o post');
+                    $scope.mensagem = {texto: 'Não foi possível remover o post'};
                     console.log(erro);
                 }
             );
