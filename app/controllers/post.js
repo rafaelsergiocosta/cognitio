@@ -1,3 +1,5 @@
+var sanitize = require('mongo-sanitize');
+
 module.exports = function(app) {
 
     var Post = app.models.Post;
@@ -18,7 +20,7 @@ module.exports = function(app) {
     };
 
     controller.getPost = function(req, res) {
-        var _id = req.params.id;
+        var _id = sanitize(req.params.id);
         Post.findById(_id).exec()
         .then(
             function(post) {
@@ -33,7 +35,7 @@ module.exports = function(app) {
     };
 
     controller.removePost = function(req, res) {
-        var _id = req.params.id;
+        var _id = sanitize(req.params.id);
         Post.remove({"_id" : _id}).exec()
         .then(
             function() {
@@ -47,8 +49,15 @@ module.exports = function(app) {
 
     controller.salvaPost = function(req, res) {
         var _id = req.body._id;
+
+        var dados = {
+            "titulo" : req.body.titulo,
+            "autor" : req.user.login,
+            "post" : req.body.post
+        };
+
         if(_id) {
-            Post.findByIdAndUpdate(_id, req.body).exec()
+            Post.findByIdAndUpdate(_id, dados).exec()
             .then(
                 function(post) {
                     res.json(post);
@@ -59,7 +68,7 @@ module.exports = function(app) {
                 }
             );
         } else {
-            Post.create(req.body)
+            Post.create(dados)
             .then(
                 function(post) {
                     res.status(201).json(post);

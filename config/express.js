@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
+var helmet = require('helmet');
 
 module.exports = function(app) {
     
@@ -26,6 +27,10 @@ module.exports = function(app) {
     ));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(helmet.frameguard());
+    app.use(helmet.xssFilter());
+    app.use(helmet.noSniff());
+    app.disable('x-powered-by');
 
     load('models', {cwd: 'app'})
         .then('controllers')
@@ -34,6 +39,11 @@ module.exports = function(app) {
         .into(app);
 
     app.use(express.static('./public'));
+
+    // se nenhum rota atender, direciona para página 404
+    app.get('*', function(req, res) {
+        res.status(404).render('404');
+    });
 
     return app;
 };
