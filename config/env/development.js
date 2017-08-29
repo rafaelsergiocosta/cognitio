@@ -1,8 +1,16 @@
 module.exports = {
     env: 'development',
     db: 'mongodb://localhost/cognitio',
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    seleniumUser: process.env.SELENIUM_USER,
-    seleniumUserPassword: process.env.SELENIUM_USER_PASSWORD
+    github: {
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    },
+    facebook: {
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    },
+    selenium: {
+        user: process.env.SELENIUM_USER,
+        userPassword: process.env.SELENIUM_USER_PASSWORD
+    }
 };
