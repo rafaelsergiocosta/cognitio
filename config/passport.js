@@ -7,10 +7,13 @@ var mongoose = require('mongoose');
 module.exports = function() {
     var Usuario = mongoose.model('Usuario');
 
+    var urlCallback = 'http://' + config.domain + ':'
+    + config.port;
+
     passport.use(new GitHubStrategy({
         clientID: config.github.clientID,
         clientSecret: config.github.clientSecret,
-        callbackURL: '/auth/github/callback'
+        callbackURL: urlCallback + '/auth/github/callback'
         }, function(accessToken, refreshToken, profile, done) {
             Usuario.findOrCreate(
                 { "login" : profile.username},
@@ -29,7 +32,7 @@ module.exports = function() {
     passport.use(new FacebookStrategy({
         clientID: config.facebook.clientID,
         clientSecret: config.facebook.clientSecret,
-        callbackURL: '/auth/facebook/callback'
+        callbackURL: urlCallback + '/auth/facebook/callback'
         }, function(accessToken, refreshToken, profile, done) {
             Usuario.findOrCreate(
                 { "login" : profile.displayName},

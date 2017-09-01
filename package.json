@@ -2,11 +2,12 @@
   "name": "cognitio",
   "version": "1.0.0",
   "description": "Sistema de Gestão do Conhecimento com Gamefication",
-  "main": "index.js",
+  "main": "server.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

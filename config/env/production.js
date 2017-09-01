@@ -1,6 +1,6 @@
 module.exports = {
-    env: 'development',
-    db: 'mongodb://localhost/cognitio',
+    env: 'production',
+    db: process.env.OPENSHIFT_MONGODB_DB_URL + 'contatooh',
     github: {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -9,11 +9,7 @@ module.exports = {
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     },
-    selenium: {
-        user: process.env.SELENIUM_USER,
-        userPassword: process.env.SELENIUM_USER_PASSWORD
-    },
-    port: 3000,
-    address: 'localhost',
-    domain: 'localhost'
-};
+    port: process.env.OPENSHIFT_NODEJS_PORT,
+    address: process.env.OPENSHIFT_NODEJS_IP,
+    domain: process.env.OPENSHIFT_APP_DNS
+    };
