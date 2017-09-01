@@ -1,6 +1,6 @@
 module.exports = {
     env: 'production',
-    db: process.env.OPENSHIFT_MONGODB_DB_URL + 'contatooh',
+    db: process.env.OPENSHIFT_MONGODB_DB_URL + 'cognitio',
     github: {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
