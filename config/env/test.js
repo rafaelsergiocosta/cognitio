@@ -1,6 +1,6 @@
 module.exports = {
     env: 'test',
-    db: 'mongodb://localhost/cognitio_test',
+    db: 'localhost/cognitio_test',
     sauceTestName: 'Cognitio E2E Testing',
     sauceUser : process.env.SAUCE_USERNAME,
     sauceKey : process.env.SAUCE_ACCESS_KEY,

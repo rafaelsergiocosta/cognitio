@@ -1,6 +1,6 @@
 module.exports = {
     env: 'development',
-    db: 'mongodb://localhost/cognitio',
+    db: 'localhost/cognitio',
     github: {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,

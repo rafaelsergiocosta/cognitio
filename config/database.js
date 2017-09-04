@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 module.exports = function(uri) {
-    mongoose.connect(uri, { useMongoClient: true });
+    mongoose.connect('mongodb://' + uri, { useMongoClient: true });
 
     // Debug
     //mongoose.set('debug',true);

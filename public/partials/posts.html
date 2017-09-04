@@ -5,13 +5,13 @@
     {{mensagem.texto}}
 </p>
 <a ng-href="#/post" class="btn btn-primary">Novo Post</a>
-<input ng-model="filtro" type="search" placeholder="parte do nome">
 <p ng-show="posts.length">
     Posts cadastrados: {{posts.length}}
 </p>
 <p class="text-info" ng-hide="posts.length">
     Não há posts cadastrados
 </p>
+<input class="form-control" ng-model="filtro" type="search" placeholder="Pesquisa">
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
