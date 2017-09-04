@@ -9,7 +9,7 @@ module.exports = {
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     },
-    port: process.env.OPENSHIFT_NODEJS_PORT,
-    address: process.env.OPENSHIFT_NODEJS_IP,
+    port: '8080',
+    address: '0.0.0.0',
     domain: process.env.OPENSHIFT_APP_DNS
     };
