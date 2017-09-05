@@ -1,3 +1,6 @@
+console.log(process.env.DATABASE_SERVICE_NAME);
+console.log(process.env);
+
 var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
 mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
 mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
@@ -7,7 +10,6 @@ mongoUser = process.env[mongoServiceName + '_USER'];
 
 module.exports = {
     env: 'production',
-    mongoServiceName: process.env.DATABASE_SERVICE_NAME.toUpperCase(),
     db: process.env.mongoUser + ":" +
         process.env.mongoPassword + "@" +
         process.env.mongoHost + ':' +
