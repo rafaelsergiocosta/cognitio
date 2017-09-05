@@ -1,10 +1,11 @@
 module.exports = {
     env: 'production',
-    db: process.env.MONGODB_USER + ":" +
-        process.env.MONGODB_PASSWORD + "@" +
-        process.env.MONGODBDB_HOST + ':' +
-        process.env.MONGODBDB_PORT + '/' +
-        process.env.MONGODB_DATABASE,
+    mongoServiceName: process.env.DATABASE_SERVICE_NAME.toUpperCase(),
+    db: process.env.[mongoServiceName + '_USER'] + ":" +
+        process.env.[mongoServiceName + '_PASSWORD'] + "@" +
+        process.env.[mongoServiceName + '_SERVICE_HOST'] + ':' +
+        process.env.[mongoServiceName + '_SERVICE_PORT'] + '/' +
+        process.env.[mongoServiceName + '_DATABASE'],
     github: {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
