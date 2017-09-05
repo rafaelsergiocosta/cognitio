@@ -1,11 +1,18 @@
+var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
+mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
+mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
+mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
+mongoPassword = process.env[mongoServiceName + '_PASSWORD']
+mongoUser = process.env[mongoServiceName + '_USER'];
+
 module.exports = {
     env: 'production',
     mongoServiceName: process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-    db: process.env.[mongoServiceName + '_USER'] + ":" +
-        process.env.[mongoServiceName + '_PASSWORD'] + "@" +
-        process.env.[mongoServiceName + '_SERVICE_HOST'] + ':' +
-        process.env.[mongoServiceName + '_SERVICE_PORT'] + '/' +
-        process.env.[mongoServiceName + '_DATABASE'],
+    db: process.env.mongoUser + ":" +
+        process.env.mongoPassword + "@" +
+        process.env.mongoHost + ':' +
+        process.env.mongoPort + '/' +
+        process.env.mongoDatabase,
     github: {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
