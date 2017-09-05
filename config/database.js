@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 module.exports = function(uri) {
+    console.log(uri);
     mongoose.connect('mongodb://' + uri, { useMongoClient: true });
 
     // Debug
