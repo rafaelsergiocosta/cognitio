@@ -14,6 +14,11 @@ angular.module('cognitio', ['ngRoute', 'ngResource'])
             templateUrl: 'partials/post.html',
             controller: 'PostController'
         });
+
+        $routeProvider.when('/view/:postId', {
+            templateUrl: 'partials/view.html',
+            controller: 'PostController'
+        });
         
         $routeProvider.otherwise({redirectTo: '/posts'});
 });

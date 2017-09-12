@@ -21,10 +21,11 @@
         </tr>
         <tr ng-repeat="post in posts | filter: filtro">
             <td>
-                <a ng-href="#/post/{{post._id}}">{{post.titulo}}</a>
+                <a ng-href="#/view/{{post._id}}">{{post.titulo}}</a>
             </td>
             <td>{{post.autor}}</td>
             <td class="text-center">
+                <a ng-href="#/post/{{post._id}}" class="btn btn-primary">Editar</a>
                 <button ng-click="remove(post)" class="btn btn-warning">Remover</buttom>
             </td>
         </tr>
